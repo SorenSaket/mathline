@@ -1,0 +1,58 @@
+$lineHeight: 32px;
+
+body
+{
+    background-color: black;
+    color: white;
+    font-size: $lineHeight;
+    font-family: 'Source Code Pro', monospace;
+    margin: $lineHeight;
+}
+
+@font-face
+{
+    font-family: 'Source Code Pro', monospace;
+    src: local("Source Code Pro Semi-Bold"),
+        local("Source Code Pro");
+}
+
+.line
+{
+    display: flex;
+    width: 100%;
+    height: $lineHeight;
+    flex-direction: row;
+    margin-bottom: $lineHeight/4;
+    .lineNumber
+    {
+        margin-right: 4px;
+        color: gray;
+    }
+    .lineDecal
+    {
+        margin-right: 8px;
+        color: gray;
+    }
+    .lineContent
+    {
+        flex-grow:1;
+        input
+        {
+            -webkit-appearance: none;
+            background-color: rgba($color: #000000, $alpha: 0.0) !important;;
+            color: white;
+            border: 0;
+            width:100%;
+            height:100%;
+            font-size: $lineHeight;
+            font-family: 'Source Code Pro', monospace;
+        }
+        input:focus{
+            outline: none;
+        }
+        input:-webkit-autofill {
+            background-color: rgba($color: #000000, $alpha: 0.0) !important;;
+        }
+    }
+   
+}

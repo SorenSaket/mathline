@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Mathline</title>
+    <link rel="icon" type="image/png" href="../../assets/icon.png" />
+    <link rel="stylesheet" type="text/css" href="console.css"> 
+    <script src="console.js"></script>
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+    <script id="line-template" type="text/x-handlebars-template">
+      <div id="line{{num}}" class="line">
+        <div class="lineNumber">
+          {{num}}
+        </div>
+        <div class="lineDecal">
+          {{decal}}
+        </div>
+        <div class="lineContent">
+          <form action="#" onsubmit="cval({{num}}); return false" id="form{{num}}">
+            <input id="input{{num}}" class="fontSizeSetter" type="text" autocomplete="off" value="{{val}}" {{disabled}}>
+          </form>
+        </div>
+      </div>
+    </script>
+  </head>
+  <body id="lineContainer" class="fontSizeSetter" onload="initialize()">
+  
+  </body>
+</html>
