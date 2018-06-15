@@ -5,9 +5,9 @@
     <title>Mathline</title>
     <link rel="icon" type="image/png" href="../../assets/icon.png" />
     <link rel="stylesheet" type="text/css" href="console.css"> 
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/handlebars-v4.0.11.js"></script>
     <script src="console.js"></script>
-    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
     <script id="line-template" type="text/x-handlebars-template">
       <div id="line{{num}}" class="line">
         <div class="lineNumber">
@@ -17,8 +17,7 @@
           {{decal}}
         </div>
         <div class="lineContent">
-          {{val}}
-        
+          {{{val}}}
         </div>
       </div>
     </script>
@@ -31,7 +30,7 @@
         >
       </div>
       <div class="lineContent">
-        <form  onsubmit="cval(); return false">
+        <form action="#" onsubmit="cval(); return false">
           <input id="inputField" class="fontSizeSetter" type="text" autocomplete="off">
         </form>
       </div>
