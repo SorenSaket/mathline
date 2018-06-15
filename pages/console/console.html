@@ -17,14 +17,24 @@
           {{decal}}
         </div>
         <div class="lineContent">
-          <form action="#" onsubmit="cval({{num}}); return false" id="form{{num}}">
-            <input id="input{{num}}" class="fontSizeSetter" type="text" autocomplete="off" value="{{val}}" {{disabled}}>
-          </form>
+          {{val}}
+        
         </div>
       </div>
     </script>
   </head>
-  <body id="lineContainer" class="fontSizeSetter" onload="initialize()">
-  
+  <body class="fontSizeSetter" onload="initialize()">
+    <div id="lineContainer"></div>
+    
+    <div id="input" class="line">
+      <div class="lineDecal">
+        >
+      </div>
+      <div class="lineContent">
+        <form  onsubmit="cval(); return false">
+          <input id="inputField" class="fontSizeSetter" type="text" autocomplete="off">
+        </form>
+      </div>
+    </div>
   </body>
 </html>

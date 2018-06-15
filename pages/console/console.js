@@ -16,8 +16,8 @@ function initialize()
         script.type = "text/javascript";
         document.head.appendChild(script);
     }
-    addLine("Welcome To Mathline");
-    addLine("");
+    /*addLine("Welcome To Mathline");
+    addLine("");*/
 }
 
 function memf(input)
@@ -39,34 +39,20 @@ function dump(input)
         addLine(input[i]);
     }
 }
-function clear(opts)
+
+function cval()
 {
-    if(opts == "mem")
-    {
-        mem = [];
-        addLine("Cleared Memory");
-    }
-    else
-    {
-        $('#lineContainer').html("");
-        lineCount = 0;
-    }
-}
-function cval(num)
-{
-    var input = $("#input" + num)
+    var input = $("#inputField").val();
+    
     try {
-        eval(input.val());
+        eval(input);
+        $("#inputField").val("");
     }
     catch(err) {
         console.error(err);
         addLine(err);
     }
-    input.prop( "disabled", true );
-    addLine("");
-    $("#input" + lineCount).focus();
 }
-
 function using(input, opts)
 {
     addex(input, opts)
@@ -85,6 +71,34 @@ function save(input)
     }
 }
 
+
+// -------- Memory Management --------
+function push(input)
+{
+    mem.push(input);
+    addLine("Added: " + input + " to memory in slot " + (mem.length-1).toString() )
+}
+
+function fill(input)
+{
+    mem.fill(input);
+    addLine("Filled memeory with: " + input)
+}
+
+function pop()
+{
+    addLine("Removed: " + mem[mem.length-1] + " from memory at slot " + (mem.length-1).toString())
+    mem.pop();
+}
+
+function find(input)
+{
+    var temp = mem.indexOf(input);
+    if(temp == -1)
+        addLine("Item not found in memory");
+    else
+        addLine("Found " + input + " at " + mem.indexOf(input));
+}
 
 // -------- Visuals --------
 function addLine(value){
@@ -113,9 +127,28 @@ function addLine(value){
     var theCompiledHtml = theTemplate(context);
     
     // Add the compiled html to the page
-    $('#lineContainer').append(theCompiledHtml);
+    $("#lineContainer").append(theCompiledHtml);
+    
 }
 
+function addText()
+{
+
+}
+
+function clear(opts)
+{
+    if(opts == "mem")
+    {
+        mem = [];
+        addLine("Cleared Memory");
+    }
+    else
+    {
+        $('#lineContainer').empty();
+        lineCount = 0;
+    }
+}
 
 // -------- Extensions --------
 function addex(input, opts)
