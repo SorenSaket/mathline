@@ -20,7 +20,6 @@ body
 {
     display: flex;
     width: 100%;
-    height: $lineHeight;
     flex-direction: row;
     margin-bottom: $lineHeight/4;
     .lineNumber
@@ -54,5 +53,68 @@ body
             background-color: rgba($color: #000000, $alpha: 0.0) !important;;
         }
     }
-   
+}
+
+@media screen and (max-width: 576px) {
+    body {
+        font-size: 16px;
+        margin: 16px;
+       
+    }
+    .line
+    {
+        margin-bottom: 4px;
+        .lineContent
+        {   
+            input
+            {
+                font-size: 16px;
+            } 
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    body {
+        font-size: 16px;
+        margin: 16px;
+       
+    }
+    .line
+    {
+        margin-bottom: 4px;
+        .lineContent
+        {   
+            input
+            {
+                font-size: 16px;
+            } 
+        }
+    }
+}
+
+
+#overlay
+{
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    
+    a{
+        color: rgba($color: white, $alpha: 0.5);
+        text-decoration: none;
+    }
+    a:hover{
+        color: rgba($color: white, $alpha: 1);
+    }
+}
+
+#defaultCanvas
+{
+    width: 100%;
+    height: 100%;
+}
+#canvasContainer
+{
+    background-color: white;
 }

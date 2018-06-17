@@ -1,16 +1,21 @@
 var mem = [];
 var his = [];
 
+var settings = {
+    rad: "false"
+}
 var windows = [];
 var extensions = [];
 var defaultExtensions = [
-    "../../node_modules/mathjs/dist/math.min.js",
-    "../../node_modules/p5/p5.min.js"
+    "../../extensions/math/mathjs/math.min.js",
+    "../../extensions/graphicsjs/graphics.js"
 ];
 
 var lineCount = 0;
 
 var historySelected = -1;
+
+var isInIframe = (window.location != window.parent.location) ? true : false;
 
 // -------- Event Listeners --------
 document.addEventListener('keydown', function(event) {
@@ -33,9 +38,18 @@ document.addEventListener('keydown', function(event) {
 });
 
 // --------  --------
-//
+//Run on startup
 function initialize()
 {
+    if(!isInIframe)
+    {
+        var el = $( ".showInIframe" );
+        for (let i = 0; i < el.length; i++) {
+            el[i].remove();
+        }
+    }
+    
+    addLine('<div style="text-align: center;"> ---- Welcome To Mathline ---- </div>');
     for (let i = 0; i < defaultExtensions.length; i++) {
         var script = document.createElement("script"); // Make a script DOM node
         script.src = defaultExtensions[i];
@@ -43,15 +57,29 @@ function initialize()
         document.head.appendChild(script);
         addLine('<font color="gray"> Loaded ' + defaultExtensions[i].substr(defaultExtensions[i].lastIndexOf("/")+1) + '<font>');
     }
-    /*addLine("Welcome To Mathline");
-    addLine("");*/
 }
-//
+// CUstom evaluate
 function cval()
 {
+    var command;
     var input = $("#inputField").val();
     his.unshift(input.toString());
     historySelected = -1;
+    /*
+    // Splits input into array
+    var splitInput = input.split(" ");
+    // Function to call is the first item in array
+    command = splitInput[0];
+    command += "(";
+    if(splitInput.length > 1)
+    {
+        for (let i = 1; i < splitInput.length; i++) {
+            command+= splitInput[i] + ",";
+        }
+        command = command.substring(0, command.length - 1);
+    }
+    command += ")";*/
+
     try {
         eval(input);
         $("#inputField").val("");
@@ -61,7 +89,7 @@ function cval()
         addLine('<font color="#DE3C4B">'+err+'</font>');
     }
 }
-//
+// WIP
 function save(input)
 {
     switch (input) {
@@ -77,17 +105,24 @@ function save(input)
 }
 
 // -------- Memory Management --------
-//
+// Add variable to memory
 function push(input)
 {
     mem.push(input);
     addLine("Added: " + input + " to memory in slot " + (mem.length-1).toString() )
 }
+// Edits varible in memory at index with value
+function edit(index, value)
+{
+    console.log("a");
+    addLine("Edited " + mem[index] +  " in memory slot " + index + " with " +  value)
+    mem.splice(index, 0, value);
+}
 //
 function fill(input)
 {
     mem.fill(input);
-    addLine("Filled memeory with: " + input)
+    addLine("Filled memory with: " + input)
 }
 //
 function pop()
@@ -121,17 +156,18 @@ function edit(index, input)
 }
 
 // -------- Visuals --------
+
 //Add new line
 function addLine(value){
     var theTemplateScript = $("#line-template").html();
 
     // Compile the template
     var theTemplate = Handlebars.compile(theTemplateScript);
-    var decal =">";
+    var decal ="";
 
     if(value != "")
     {
-        decal = "-";
+        decal = "";
     }
 
     // Define our data object
@@ -185,7 +221,23 @@ function dump(input)
     }
 }
 
+function showCanvas()
+{
+    $("#canvasContainer").show();
+    $("#input").hide();
+    $("#lineContainer").hide();
+}
+
+function hideCanvas()
+{
+    $("#canvasContainer").hide();
+    $("#input").show();
+    $("#lineContainer").show();
+}
+
+
 // -------- Extensions --------
+
 //
 function addex(input, opts)
 {
@@ -194,6 +246,7 @@ function addex(input, opts)
     if(!source.endsWith(".js"))
         source+= ".js";
     script.src = source;
+    script.type = "text/javascript"
     document.head.appendChild(script);
     addLine('<font color="gray"> Loaded ' + source.substr(source.lastIndexOf("/")+1) + '<font>');
 }

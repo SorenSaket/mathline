@@ -23,6 +23,10 @@
     </script>
   </head>
   <body class="fontSizeSetter" onload="initialize()">
+    <div id="canvasContainer" hidden>
+    </div>
+    
+    
     <div id="lineContainer"></div>
     
     <div id="input" class="line">
@@ -31,9 +35,15 @@
       </div>
       <div class="lineContent">
         <form action="#" onsubmit="cval(); return false">
-          <input id="inputField" class="fontSizeSetter" type="text" autocomplete="off">
+          <input id="inputField" class="fontSizeSetter" type="text" autocomplete="off" autocapitalize="off">
         </form>
       </div>
+    </div>
+
+    <div id="overlay">
+      <a class="showInIframe" href="http://www.ssaket.dk/mathline/pages/console/console.html" target="_blank">Fullscreen</a>
+      <font class="showInIframe"> - </font>
+      <a href="https://github.com/SorenSaket/mathline" target="_blank">Learn More</a>
     </div>
   </body>
 </html>
